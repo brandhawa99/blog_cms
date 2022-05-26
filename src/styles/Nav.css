@@ -5,17 +5,18 @@
 .nav{
   display: flex;
   justify-content: center;
-  border-bottom: 2px 3px black solid;
+  border-bottom: 2px black solid;
 }
 .container{
   display: flex;
   flex: 1;
   font-size:1.3rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 5px 10px;
   max-width: 85em;
   letter-spacing: 1px;
+  gap: 20px;
 }
 .title{
   margin: 5px 10px;

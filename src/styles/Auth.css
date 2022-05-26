@@ -1,0 +1,12 @@
+.auth{
+  display: flex;
+  justify-content: center;
+}
+.loggedIn{
+  margin-top: 100px;
+  background-color: #056968c5;
+  color: white;
+  width: 300px;
+  padding: 20px 5px;
+
+}
