@@ -1,6 +1,6 @@
 import './App.css';
-import {useState} from 'react';
-import {BrowserRouter as Router, Route, Routes,  } from 'react-router-dom'
+import {useState,} from 'react';
+import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom'
 import {useEffect} from 'react';
 import Nav from './Components/Nav'
 import Posts from './Components/Posts'
@@ -8,20 +8,24 @@ import Auth from './Components/Auth'
 import CreatePost from './Components/CreatePost'
 
 function App() {
+  const navigate = useNavigate();
   const[userAuth , setUserAuth] = useState(false);
 
   useEffect(() =>{
     const token = localStorage.getItem('token')
-    console.log(token);
     if(token===null){
       setUserAuth(false);
+      navigate('/')
     }
     if(token!==null){
       const expiredate = localStorage.getItem('expires');
       if(expiredate>Date.now()){
+        localStorage.removeItem('token')
+        localStorage.removeItem('expires')
         setUserAuth(true);
       }else{
         setUserAuth(false);
+        navigate('/')
       }
     }
   },[])
@@ -52,14 +56,16 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      {/* <Router> */}
       <Nav userAuth={userAuth} />
         <Routes>
           <Route path = '/' element={<Auth userAuth={userAuth} setUserAuth={setUserAuth}/>} />
+
           <Route path='/author/posts' element={<Posts userAuth={userAuth} />}/>
+          <Route path = '/author/posts/:id' element={<div>hi</div>} />
           <Route path='/author/create-post' element={<CreatePost userAuth={userAuth} />}/>
         </Routes>
-      </Router>
+      {/* </Router> */}
 
 
 
