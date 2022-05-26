@@ -20,15 +20,16 @@ function App() {
     if(token!==null){
       const expiredate = localStorage.getItem('expires');
       if(expiredate>Date.now()){
+        setUserAuth(true);
+        navigate('/author/posts',{replace:true})
+      }else{
         localStorage.removeItem('token')
         localStorage.removeItem('expires')
-        setUserAuth(true);
-      }else{
         setUserAuth(false);
         navigate('/')
       }
     }
-  },[])
+  },[userAuth])
 
 
 
