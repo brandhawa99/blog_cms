@@ -5,22 +5,25 @@ import {useEffect} from 'react';
 import Nav from './Components/Nav'
 import Posts from './Components/Posts'
 import Auth from './Components/Auth'
+import CreatePost from './Components/CreatePost'
 
 function App() {
-  const [login, setLogin] = useState(true);
+  const[userAuth , setUserAuth] = useState(false);
 
-
-  const switch_form = () =>{
-    setLogin(!login);
-  }
   useEffect(() =>{
     const token = localStorage.getItem('token')
-    if(token !== null){
-
-    }else{
+    console.log(token);
+    if(token===null){
+      setUserAuth(false);
     }
-
-
+    if(token!==null){
+      const expiredate = localStorage.getItem('expires');
+      if(expiredate>Date.now()){
+        setUserAuth(true);
+      }else{
+        setUserAuth(false);
+      }
+    }
   },[])
 
 
@@ -49,11 +52,12 @@ function App() {
 
   return (
     <div className="App">
-      <Nav />
       <Router>
+      <Nav userAuth={userAuth} />
         <Routes>
-          <Route path = '/' element={<Auth />} />
-          <Route path='/author/posts' element={<Posts />}/>
+          <Route path = '/' element={<Auth userAuth={userAuth} setUserAuth={setUserAuth}/>} />
+          <Route path='/author/posts' element={<Posts userAuth={userAuth} />}/>
+          <Route path='/author/create-post' element={<CreatePost userAuth={userAuth} />}/>
         </Routes>
       </Router>
 
