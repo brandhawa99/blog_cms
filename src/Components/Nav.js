@@ -10,12 +10,15 @@ export default function Nav() {
   return (
     <div className='nav'>
       <div className="container">
-        {/* <Link style={navStyle} to='/'>
-          <div className='title'>Dev Blog</div>
+        <Link style={navStyle} to='/'>
+          <div className='button'>Login/SignUp</div>
         </Link>
-        <Link to='/posts'style={navStyle}>
-          <div className='button'>All Posts</div>
-        </Link> */}
+        <Link to='/author/posts'style={navStyle}>
+          <div className='button'>Your Posts</div>
+        </Link>
+        <Link to='/author/create-post'style={navStyle}>
+          <div className='button'>Create Post</div>
+        </Link>
       </div>
     </div>
   )
