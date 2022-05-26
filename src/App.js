@@ -1,6 +1,6 @@
 import './App.css';
 import {useState,} from 'react';
-import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom'
+import {Route, Routes, useNavigate} from 'react-router-dom'
 import {useEffect} from 'react';
 import Nav from './Components/Nav'
 import Posts from './Components/Posts'
