@@ -1,9 +1,9 @@
 import {React,useState} from 'react'
 import Login from './Login';
+import '../styles/Auth.css'
 
 
-function Auth() {
-  const [userAuth, setUserAuth] = useState(false);
+function Auth(props) {
   const [loginData, setLoginData] = useState({
     username:"",
     password:"",
@@ -30,9 +30,12 @@ function Auth() {
       });
       const valid = await response.json();
       if(response.status === 200){
-        setUserAuth(true);
+        props.setUserAuth(true);
         localStorage.setItem('token',valid.token)
+        localStorage.setItem('expires', valid.expiresIn)
 
+      }else{
+        throw new Error ('Login Error')
       }
 
     } catch (error) {
@@ -42,8 +45,11 @@ function Auth() {
   }
   
   return (
-    <div>
-      <Login loginSubmit={loginSubmit} loginData={loginData} />
+    <div className='auth'>
+      {!props.userAuth ? 
+        <Login userAuth={props.userAuth} loginSubmit={loginSubmit} handleLogin={handleLogin} loginData={loginData} />:
+        <div className='loggedIn'>You Are Logged In  : )</div>
+      }
 
     </div>
   )
