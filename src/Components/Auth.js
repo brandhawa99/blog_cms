@@ -43,12 +43,18 @@ function Auth(props) {
       
     }
   }
+
+  function logOut () {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expires');
+    props.setUserAuth(false);
+  }
   
   return (
     <div className='auth'>
       {!props.userAuth ? 
         <Login userAuth={props.userAuth} loginSubmit={loginSubmit} handleLogin={handleLogin} loginData={loginData} />:
-        <div className='loggedIn'>You Are Logged In  : )</div>
+        <div className='loggedIn'><button onClick={logOut}>Log Out!</button></div>
       }
 
     </div>
