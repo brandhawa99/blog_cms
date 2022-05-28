@@ -6,6 +6,7 @@ import Nav from './Components/Nav'
 import Posts from './Components/Posts'
 import Auth from './Components/Auth'
 import CreatePost from './Components/CreatePost'
+import UpdateDeletePost from './Components/UpdateDeletePost';
 
 function App() {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ function App() {
           <Route path = '/' element={<Auth userAuth={userAuth} setUserAuth={setUserAuth}/>} />
 
           <Route path='/author/posts' element={<Posts userAuth={userAuth} />}/>
-          <Route path = '/author/posts/:id' element={<div>hi</div>} />
+          <Route path = '/author/posts/:id' element={<UpdateDeletePost />} />
           <Route path='/author/create-post' element={<CreatePost userAuth={userAuth} />}/>
         </Routes>
       {/* </Router> */}
