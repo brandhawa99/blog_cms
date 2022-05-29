@@ -1,22 +1,33 @@
 import React, { useState } from 'react'
 
 function CreatePost(props) {
+  const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
     title:"",
     blog:"",
-    private:false,
+    public:false,
   })
+
+  const handleOnChange = () => {
+    const newdata = {...formData}
+    newdata["public"] = !isChecked
+    setFormData(newdata)
+    setIsChecked(!isChecked);
+  };
+
+
   const handleLogin = (e)=>{
     e.preventDefault();
     const newdata = {...formData};
-    newdata[e.target.name] = e.target.value;
-    setFormData(newdata);
+    if(e.target.name !== 'puclic'){
+      newdata[e.target.name] = e.target.value;
+      setFormData(newdata);
+    }
   }
-
   const submit_Form = async() =>{
     try {
 
-      const response = fetch('http://localhost:3001/author/post/create',{
+      const response = fetch('http://localhost:3001/author/posts/create',{
         method : 'POST',
         mode: 'cors',
         credentials:'same-origin',
@@ -24,7 +35,11 @@ function CreatePost(props) {
           'Content-Type':'application/json',
           'Authorization': localStorage.getItem('token'),
         },
-        body:JSON.stringify({formData}),
+        body:JSON.stringify({
+          title:formData.title,
+          blog:formData.blog,
+          public:formData.public
+        }),
       });
       if(response.ok){
 
@@ -35,21 +50,27 @@ function CreatePost(props) {
     }
   }
 
-
-
   return (
   <div>
     {
       props.userAuth ?
-      <form>
-      <div>
-        <label>Private</label>
-        <input name='private' type='checkbox'></input>
-      </div>
-      <input type='text' placeholder='Title' name='title' />
-      <textarea type='textarea' placeholder='post' name='post'/>
-      <button onClick={submit_Form}>Post</button>
-    </form>:<div> LOGIN</div>
+      <div> 
+        <form>
+        <div>
+          <label>Public</label>
+          <input name='public' 
+                  type='checkbox' 
+                  value='public'
+                  checked={isChecked}
+                  onChange={handleOnChange}
+                  
+                  ></input>
+        </div>
+        <input  type='text' placeholder='Title' name='title' value={formData.title} onChange={(e)=>handleLogin(e)}/>
+        <textarea type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
+        <button onClick={submit_Form}>Post</button>
+      </form>
+    </div>:<div> LOGIN</div>
     }
   </div>
   )
