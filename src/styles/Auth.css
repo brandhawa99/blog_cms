@@ -23,3 +23,15 @@
 .loggedIn button:hover{
   transform: rotate(-2deg);
 }
+
+.switch-button{
+  margin-top: 25px;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 1.25rem;
+  border: 2px solid hsla(0, 0%, 100%, 0);
+}
+.switch-button:hover{
+  
+  border: 2px solid hsl(0, 0%, 0%);
+}

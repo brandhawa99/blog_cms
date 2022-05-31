@@ -111,7 +111,7 @@ function Auth(props) {
           loginForm?<Login userAuth={props.userAuth} loginSubmit={loginSubmit} handleLogin={handleLogin} loginData={loginData} />:
         <SignUp userAuth={props.userAuth} loginSubmit={signupSubmit} handleLogin={handleSignup} loginData={signupData}/>
         }
-        <button onClick={(e)=>{e.preventDefault(); setLoginForm(!loginForm)}}>{loginForm?"Sign Up":"Login"}</button>
+        <button className='switch-button' onClick={(e)=>{e.preventDefault(); setLoginForm(!loginForm)}}>Switch to {loginForm?"Sign Up":"Login"}</button>
       </div>:
         <div className='loggedIn'><button onClick={logOut}>Log Out!</button></div>
       }
