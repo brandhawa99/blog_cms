@@ -39,8 +39,10 @@ export default function UpdateDeletePost() {
       }
     })
     const postData = await data.json()
-    console.log(postData);
+    console.log(postData.post);
     setFormData(postData.post)
+    setIsChecked(postData.post.public);
+
   }
 
   const delete_post = async() =>{
@@ -52,7 +54,7 @@ export default function UpdateDeletePost() {
       }
     })
     navigate('/author/posts')
-  }
+  }     
 
   const submit_Form = async() =>{
     try {
@@ -65,7 +67,15 @@ export default function UpdateDeletePost() {
           'Content-Type':'application/json',
           'Authorization': localStorage.getItem('token'),
         },
-        body:JSON.stringify({formData}),
+        body:JSON.stringify({
+          author:formData.author,
+          title:formData.title,
+          blog:formData.blog,
+          timestamp: formData.timestamp,
+          public:isChecked,
+          id:formData._id,
+
+        }),
       });
       if(response.ok){
 
