@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+require('../styles/CreatePost.css')
 function CreatePost(props) {
   const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
@@ -51,7 +51,7 @@ function CreatePost(props) {
   }
 
   return (
-  <div>
+  <div className='create-container'>
     {
       props.userAuth ?
       <div> 
@@ -67,7 +67,7 @@ function CreatePost(props) {
                   ></input>
         </div>
         <input  type='text' placeholder='Title' name='title' value={formData.title} onChange={(e)=>handleLogin(e)}/>
-        <textarea type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
+        <textarea className='text-area' type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
         <button onClick={submit_Form}>Post</button>
       </form>
     </div>:<div> LOGIN</div>
