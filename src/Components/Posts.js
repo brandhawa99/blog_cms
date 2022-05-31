@@ -28,6 +28,7 @@ export default function Posts(props) {
         let data = await response.json();
         //get the array from the object
         data = data.posts;
+        console.log(data);
         setPostsData(JSON.parse(JSON.stringify(data)));
 
       }else{
@@ -40,6 +41,10 @@ export default function Posts(props) {
     }
 
   }
+  const emptyData = (e) =>{
+    e.preventDefault()
+    navigate('/author/create-post')
+  }
 
   useEffect(() =>{
     data();
@@ -48,6 +53,13 @@ export default function Posts(props) {
 
   return (
     <div className='main-container'>
+      {
+        (postData===undefined || postData.length<=0)&&
+        <div className='loggedIn'>
+          <button  onClick={(e)=> emptyData(e)}>Create your first Post</button>
+          </div>
+
+      }
 
       {postData?.map(post =>{
         return(
