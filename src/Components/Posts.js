@@ -22,16 +22,15 @@ export default function Posts(props) {
 
         }
       });
-
       if(response.ok){
 
         let data = await response.json();
         //get the array from the object
         data = data.posts;
-        console.log(data);
         setPostsData(JSON.parse(JSON.stringify(data)));
 
       }else{
+
         throw new Error('The response was not okay')
       }
       
