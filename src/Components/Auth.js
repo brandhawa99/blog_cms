@@ -3,9 +3,12 @@ import Login from './Login';
 import SignUp from './SignUp';
 import '../styles/Auth.css'
 import { useNavigate } from 'react-router-dom';
+import {v4 as uuid} from 'uuid';
 
 
 function Auth(props) {
+  const [errors, setErrors] = useState([]);
+  
   let navigate = useNavigate()
   const [loginForm, setLoginForm] = useState(true);
   const [loginData, setLoginData] = useState({
@@ -19,6 +22,7 @@ function Auth(props) {
     password:"",
     password2:"",
   })
+
 
   const handleLogin = (e)=>{
     e.preventDefault();
@@ -50,14 +54,15 @@ function Auth(props) {
         props.setUserAuth(true);
         localStorage.setItem('token',valid.token)
         localStorage.setItem('expires', valid.expiresIn)
-        navigate('/author/posts');
-
       }else{
+        let item = JSON.parse(JSON.stringify(valid));
+        console.log(item);
+        setErrors(item.error)
         throw new Error ('Login Error')
       }
 
     } catch (error) {
-      console.error("login submit Error: ",error);
+      console.error("login submit Error");
       
     }
   }
@@ -85,14 +90,13 @@ function Auth(props) {
         localStorage.setItem('token',valid.token)
         localStorage.setItem('expires', valid.expiresIn)
 
-        navigate('/author/create-post')
 
       }else{
         throw new Error (valid)
       }
 
     } catch (error) {
-      console.error("Signup submit Error: ",error);
+      setErrors([{error:"Signup submit Error"}]);
       
     }
   }
@@ -110,6 +114,12 @@ function Auth(props) {
         {
           loginForm?<Login userAuth={props.userAuth} loginSubmit={loginSubmit} handleLogin={handleLogin} loginData={loginData} />:
         <SignUp userAuth={props.userAuth} loginSubmit={signupSubmit} handleLogin={handleSignup} loginData={signupData}/>
+        }
+        {
+          errors.length>0&&
+          errors.map(item =>{
+            return <div className='error-message' key={uuid()}>{item.msg}</div>
+          }) 
         }
         <button className='switch-button' onClick={(e)=>{e.preventDefault(); setLoginForm(!loginForm)}}>Switch to {loginForm?"Sign Up":"Login"}</button>
       </div>:
