@@ -40,7 +40,7 @@ function Auth(props) {
   const loginSubmit = async(e) =>{
     e.preventDefault();
     try {
-    const response = await fetch('http://localhost:3001/auth/login',{
+    const response = await fetch('https://agile-mesa-41864.herokuapp.com/auth/login',{
         method:'POST',
         mode:'cors',
         credentials:'same-origin',
@@ -67,7 +67,7 @@ function Auth(props) {
   const signupSubmit = async(e) =>{
     e.preventDefault();
     try {
-    const response = await fetch('http://localhost:3001/auth/signup',{
+    const response = await fetch('https://agile-mesa-41864.herokuapp.com/auth/signup',{
         method:'POST',
         mode:'cors',
         credentials:'same-origin',

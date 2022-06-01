@@ -14,7 +14,7 @@ export default function Posts(props) {
 
     try {
       const idToken = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/author/posts',{
+      const response = await fetch('https://agile-mesa-41864.herokuapp.com/author/posts',{
         method: 'GET',
         mode:'cors',
         headers:{

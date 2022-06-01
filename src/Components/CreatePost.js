@@ -27,7 +27,7 @@ function CreatePost(props) {
   const submit_Form = async() =>{
     try {
 
-      const response = fetch('http://localhost:3001/author/posts/create',{
+      const response = fetch('https://agile-mesa-41864.herokuapp.com/author/posts/create',{
         method : 'POST',
         mode: 'cors',
         credentials:'same-origin',

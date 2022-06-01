@@ -33,7 +33,7 @@ export default function UpdateDeletePost() {
 
   const getPost = async() =>{
     const idToken = localStorage.getItem('token');
-    const data = await fetch(`http://localhost:3001/author/posts/${params.id}`,{
+    const data = await fetch(`https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}`,{
       method: 'GET',
       mode:'cors',
       headers:{
@@ -49,7 +49,7 @@ export default function UpdateDeletePost() {
   }
 
   const delete_post = async() =>{
-    const data = await fetch(`http://localhost:3001/author/posts/${params.id}/delete`,{
+    const data = await fetch(`https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}/delete`,{
       method:"POST",
       mode:'cors',
       headers:{
@@ -62,7 +62,7 @@ export default function UpdateDeletePost() {
   const submit_Form = async() =>{
     try {
 
-      const response = fetch('http://localhost:3001/author/posts/update',{
+      const response = fetch('https://agile-mesa-41864.herokuapp.com/author/posts/update',{
         method : 'POST',
         mode: 'cors',
         credentials:'same-origin',
@@ -92,7 +92,7 @@ export default function UpdateDeletePost() {
 
   const delete_comment = async(e, id) =>{
 
-    const response = fetch(`http://localhost:3001/author/comment/${id}/delete`,{
+    const response = fetch(`https://agile-mesa-41864.herokuapp.com/author/comment/${id}/delete`,{
       method: "POST",
       mode: 'cors',
       credentials:'same-origin',
