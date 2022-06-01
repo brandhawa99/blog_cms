@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
 import {v4 as uuid} from 'uuid';
+require('../styles/CreatePost.css')
 export default function UpdateDeletePost() {
   const params = useParams();
   const navigate = useNavigate();
@@ -77,9 +78,9 @@ export default function UpdateDeletePost() {
           public:isChecked,
           id:formData._id,
 
-        }),
+        })
       });
-      
+
       if(response.ok){
 
       }
@@ -141,13 +142,13 @@ export default function UpdateDeletePost() {
     {
       comments.length>0&&
       comments.map(com =>{
-        return <div key={uuid()}> 
-          <div> 
+        return <div key={uuid()} className='delete-comment'> 
+          <div className='data'> 
             <div>username: {com.name}</div>
             <div>message: {com.message}</div>
-            <div>{com.timestamp}</div>
+            <div className='time'>{com.timestamp}</div>
           </div>
-          <button onClick={(e)=>delete_comment(e,com._id)}>delete</button>
+          <button className='button-delete' onClick={(e)=>delete_comment(e,com._id)}>delete</button>
         </div>
       })
     }
