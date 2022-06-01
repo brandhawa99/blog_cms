@@ -56,13 +56,11 @@ function Auth(props) {
         localStorage.setItem('expires', valid.expiresIn)
       }else{
         let item = JSON.parse(JSON.stringify(valid));
-        console.log(item);
         setErrors(item.error)
         throw new Error ('Login Error')
       }
 
     } catch (error) {
-      console.error("login submit Error");
       
     }
   }
@@ -89,14 +87,13 @@ function Auth(props) {
         props.setUserAuth(true);
         localStorage.setItem('token',valid.token)
         localStorage.setItem('expires', valid.expiresIn)
-
-
       }else{
+        let item = JSON.parse(JSON.stringify(valid));
+        setErrors(item.error)
         throw new Error (valid)
       }
 
     } catch (error) {
-      setErrors([{error:"Signup submit Error"}]);
       
     }
   }
