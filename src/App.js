@@ -32,30 +32,6 @@ function App() {
     }
   },[userAuth])
 
-
-
-  // const signupForm = () =>{
-  //   return (
-  //     <div>
-  //       <form action='http://localhost:3001/auth/signup' method='POST'>
-  //         <label>First Name</label>
-  //         <input type='text' name="first_name" placeholder='First Name'/>
-  //         <label>Last Name</label>
-  //         <input type='text' name="last_name" />
-  //         <label>username</label>
-  //         <input type='text' name="username" />
-  //         <label>password</label>
-  //         <input type='password' name="password"/>
-  //         <label>confirm password</label>
-  //         <input type='password' name="password2" />
-  //         <button type='submit'>Sign Up</button>
-
-  //       </form>
-  //     </div>
-  //   )
-  // }
-
-
   return (
     <div className="App">
       {/* <Router> */}
