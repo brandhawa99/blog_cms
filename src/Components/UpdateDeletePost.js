@@ -1,10 +1,13 @@
 import {React, useEffect, useState} from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
+import {v4 as uuid} from 'uuid';
 export default function UpdateDeletePost() {
   const params = useParams();
   const navigate = useNavigate();
+  const [change, setChange] = useState(0)
   const [isDelete, setDelete] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [comments, setComments] = useState([])
   const [formData, setFormData] = useState({
     title:"",
     blog:"",
@@ -29,7 +32,6 @@ export default function UpdateDeletePost() {
 
   const getPost = async() =>{
     const idToken = localStorage.getItem('token');
-    console.log(params.id);
     const data = await fetch(`http://localhost:3001/author/posts/${params.id}`,{
       method: 'GET',
       mode:'cors',
@@ -39,9 +41,9 @@ export default function UpdateDeletePost() {
       }
     })
     const postData = await data.json()
-    console.log(postData.post);
     setFormData(postData.post)
     setIsChecked(postData.post.public);
+    setComments(postData.comment)
 
   }
 
@@ -77,6 +79,7 @@ export default function UpdateDeletePost() {
 
         }),
       });
+      
       if(response.ok){
 
       }
@@ -86,10 +89,24 @@ export default function UpdateDeletePost() {
     }
   }
 
+  const delete_comment = async(e, id) =>{
+
+    const response = fetch(`http://localhost:3001/author/comment/${id}/delete`,{
+      method: "POST",
+      mode: 'cors',
+      credentials:'same-origin',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization' :localStorage.getItem('token'),
+      },
+    });
+    setChange(change+1)
+  }
+
   useEffect(()=>{
 
     getPost();
-  },[])
+  },[change])
 
   return (
     <div>
@@ -106,19 +123,33 @@ export default function UpdateDeletePost() {
       </div>
       <input  type='text' placeholder='Title' name='title' value={formData.title} onChange={(e)=>handleLogin(e)}/>
       <textarea type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
-      <button onClick={submit_Form}>Post</button>
+      <button onClick={submit_Form}>Update</button>
+      <hr></hr>
     </form>
     {
       !isDelete&&
-      <button onClick={()=>{setDelete(!isDelete)}}>Delete</button>
+      <button style={{marginBottom:"10px"}} onClick={()=>{setDelete(!isDelete)}}>Delete</button>
     }
     {isDelete &&
-      <div> 
+      <div style={{marginBottom:"7px"}}> 
         Are you sure you want to delete this Post
         <button onClick={()=>setDelete(!isDelete)}>Cancel</button>
         <br/>
         <button onClick={delete_post}>Yes I want to delete it </button>
       </div>
+    }
+    {
+      comments.length>0&&
+      comments.map(com =>{
+        return <div key={uuid()}> 
+          <div> 
+            <div>username: {com.name}</div>
+            <div>message: {com.message}</div>
+            <div>{com.timestamp}</div>
+          </div>
+          <button onClick={(e)=>delete_comment(e,com._id)}>delete</button>
+        </div>
+      })
     }
     </div>
   )
