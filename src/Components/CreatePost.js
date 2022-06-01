@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import{Navigate} from 'react-router-dom';
 require('../styles/CreatePost.css')
 function CreatePost(props) {
   const [isChecked, setIsChecked] = useState(false);
@@ -42,7 +43,7 @@ function CreatePost(props) {
         }),
       });
       if(response.ok){
-
+        <Navigate to='/author/posts' />
       }
       
     } catch (error) {
