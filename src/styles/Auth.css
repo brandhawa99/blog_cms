@@ -30,8 +30,16 @@
   padding: 10px 15px;
   border-radius: 1.25rem;
   border: 2px solid hsla(0, 0%, 100%, 0);
+  background-color: rgba(128, 128, 128, 0.288);
 }
 .switch-button:hover{
   
   border: 2px solid hsl(0, 0%, 0%);
+}
+.error-message{
+  background-color: #f87171;
+  font-size: .8rem;
+  margin-top: 7px;
+  padding: 8px 5px;
+  border-radius: 1.25rem;
 }
