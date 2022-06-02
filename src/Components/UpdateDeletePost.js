@@ -59,7 +59,8 @@ export default function UpdateDeletePost() {
     navigate('/author/posts')
   }     
 
-  const submit_Form = async() =>{
+  const submit_Form = async(e) =>{
+    e.preventDefault()
     try {
 
       const response = fetch('https://agile-mesa-41864.herokuapp.com/author/posts/update',{
@@ -88,6 +89,7 @@ export default function UpdateDeletePost() {
     } catch (error) {
       
     }
+    return false;
   }
 
   const delete_comment = async(e, id) =>{
@@ -111,7 +113,7 @@ export default function UpdateDeletePost() {
 
   return (
     <div>
-      <form>
+      <form target='_blank' action='author/posts'>
       <div>
         <label>Public</label>
         <input name='public' 
@@ -124,7 +126,7 @@ export default function UpdateDeletePost() {
       </div>
       <input  type='text' placeholder='Title' name='title' value={formData.title} onChange={(e)=>handleLogin(e)}/>
       <textarea type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
-      <button onClick={submit_Form}>Update</button>
+      <button onClick={(e) =>submit_Form(e)}>Update</button>
       <hr></hr>
     </form>
     {
