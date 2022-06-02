@@ -38,11 +38,11 @@ function App() {
       {/* <Router> */}
       <Nav userAuth={userAuth} />
         <Routes>
+          <Route path='*'  element={<PageNotFound />} />
           <Route path = '/' element={<Auth userAuth={userAuth} setUserAuth={setUserAuth}/>} />
           <Route path='/author/posts' element={<Posts userAuth={userAuth} />}/>
           <Route path = '/author/posts/:id' element={<UpdateDeletePost />} />
           <Route path='/author/create-post' element={<CreatePost userAuth={userAuth} />}/>
-          <Route path=''  element={<PageNotFound />} />
         </Routes>
       {/* </Router> */}
 
