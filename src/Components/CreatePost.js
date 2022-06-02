@@ -29,7 +29,7 @@ function CreatePost(props) {
   const submit_Form = async(e) =>{
     e.preventDefault()
     try {
-      const response = fetch('https://agile-mesa-41864.herokuapp.com/author/posts/create',{
+      await fetch('https://agile-mesa-41864.herokuapp.com/author/posts/create',{
         method : 'POST',
         mode: 'cors',
         credentials:'same-origin',

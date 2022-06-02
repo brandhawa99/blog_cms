@@ -49,7 +49,7 @@ export default function UpdateDeletePost() {
 
   const delete_post = async(e) =>{
     e.preventDefault();
-    const data = await fetch(`https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}/delete`,{
+    await fetch(`https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}/delete`,{
       method:"POST",
       mode:'cors',
       headers:{
@@ -63,7 +63,7 @@ export default function UpdateDeletePost() {
     e.preventDefault()
     try {
 
-      const response = fetch('https://agile-mesa-41864.herokuapp.com/author/posts/update',{
+      fetch('https://agile-mesa-41864.herokuapp.com/author/posts/update',{
         method : 'POST',
         mode: 'cors',
         credentials:'same-origin',
@@ -87,7 +87,7 @@ export default function UpdateDeletePost() {
   }
 
   const delete_comment = async(id) =>{
-    const response = fetch(`https://agile-mesa-41864.herokuapp.com/author/comment/${id}/delete`,{
+    await fetch(`https://agile-mesa-41864.herokuapp.com/author/comment/${id}/delete`,{
       method: "POST",
       mode: 'cors',
       credentials:'same-origin',
@@ -96,7 +96,10 @@ export default function UpdateDeletePost() {
         'Authorization' :localStorage.getItem('token'),
       },
     });
+    navigate(`/author/posts/${params.id}`)
   }
+
+
   useEffect(()=>{
 
     getPost();
