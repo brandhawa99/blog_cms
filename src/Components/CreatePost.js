@@ -49,6 +49,7 @@ function CreatePost(props) {
     } catch (error) {
       
     }
+    window.location.reload(false);
     return false;
   }
 

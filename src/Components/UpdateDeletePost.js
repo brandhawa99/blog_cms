@@ -89,11 +89,12 @@ export default function UpdateDeletePost() {
     } catch (error) {
       
     }
+    window.location.reload(false);
     return false;
   }
 
   const delete_comment = async(e, id) =>{
-
+    e.preventDefault()
     const response = fetch(`https://agile-mesa-41864.herokuapp.com/author/comment/${id}/delete`,{
       method: "POST",
       mode: 'cors',
@@ -104,6 +105,7 @@ export default function UpdateDeletePost() {
       },
     });
     setChange(change+1)
+    window.location.reload(false);
   }
 
   useEffect(()=>{
