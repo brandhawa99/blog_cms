@@ -25,9 +25,9 @@ function CreatePost(props) {
       setFormData(newdata);
     }
   }
-  const submit_Form = async() =>{
+  const submit_Form = async(e) =>{
+    e.preventDefault();
     try {
-
       const response = fetch('https://agile-mesa-41864.herokuapp.com/author/posts/create',{
         method : 'POST',
         mode: 'cors',
@@ -69,7 +69,7 @@ function CreatePost(props) {
         </div>
         <input  type='text' placeholder='Title' name='title' value={formData.title} onChange={(e)=>handleLogin(e)}/>
         <textarea className='text-area' type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
-        <button onClick={submit_Form}>Post</button>
+        <button onClick={(e)=>submit_Form(e)}>Post</button>
       </form>
     </div>:<div> LOGIN</div>
     }
