@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import{Navigate} from 'react-router-dom';
+import{useNavigate} from 'react-router-dom';
 require('../styles/CreatePost.css')
 function CreatePost(props) {
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
     title:"",
@@ -42,15 +43,10 @@ function CreatePost(props) {
           public:formData.public
         }),
       });
-      if(response.ok){
-        <Navigate to='/author/posts' />
-      }
-      
     } catch (error) {
       
     }
-    window.location.reload(false);
-    return false;
+    navigate('/author/posts')
   }
 
   return (
@@ -58,7 +54,7 @@ function CreatePost(props) {
     {
       props.userAuth ?
       <div> 
-        <form target='_blank' action='/author/posts'>
+        <form onSubmit={submit_Form}>
         <div>
           <label>Public</label>
           <input name='public' 
@@ -71,7 +67,7 @@ function CreatePost(props) {
         </div>
         <input  type='text' placeholder='Title' name='title' value={formData.title} onChange={(e)=>handleLogin(e)}/>
         <textarea className='text-area' type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
-        <button onClick={(e)=>submit_Form(e)}>Post</button>
+        <button type='submit'>Post</button>
       </form>
     </div>:<div> LOGIN</div>
     }

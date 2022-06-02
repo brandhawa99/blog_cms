@@ -5,7 +5,6 @@ require('../styles/CreatePost.css')
 export default function UpdateDeletePost() {
   const params = useParams();
   const navigate = useNavigate();
-  const [change, setChange] = useState(0)
   const [isDelete, setDelete] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [comments, setComments] = useState([])
@@ -48,7 +47,8 @@ export default function UpdateDeletePost() {
 
   }
 
-  const delete_post = async() =>{
+  const delete_post = async(e) =>{
+    e.preventDefault();
     const data = await fetch(`https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}/delete`,{
       method:"POST",
       mode:'cors',
@@ -56,7 +56,7 @@ export default function UpdateDeletePost() {
         Authorization: localStorage.getItem('token')
       }
     })
-    navigate('/author/posts')
+    navigate(`/author/posts`)
   }     
 
   const submit_Form = async(e) =>{
@@ -81,20 +81,12 @@ export default function UpdateDeletePost() {
 
         })
       });
-
-      if(response.ok){
-
-      }
-      
     } catch (error) {
-      
     }
-    window.location.reload(false);
-    return false;
+    navigate('/author/posts')
   }
 
-  const delete_comment = async(e, id) =>{
-    e.preventDefault()
+  const delete_comment = async(id) =>{
     const response = fetch(`https://agile-mesa-41864.herokuapp.com/author/comment/${id}/delete`,{
       method: "POST",
       mode: 'cors',
@@ -104,18 +96,15 @@ export default function UpdateDeletePost() {
         'Authorization' :localStorage.getItem('token'),
       },
     });
-    setChange(change+1)
-    window.location.reload(false);
   }
-
   useEffect(()=>{
 
     getPost();
-  },[change])
+  },[])
 
   return (
     <div>
-      <form target='_blank' action='author/posts'>
+      <form onSubmit={submit_Form}>
       <div>
         <label>Public</label>
         <input name='public' 
@@ -128,7 +117,7 @@ export default function UpdateDeletePost() {
       </div>
       <input  type='text' placeholder='Title' name='title' value={formData.title} onChange={(e)=>handleLogin(e)}/>
       <textarea type='textarea' placeholder='post' name='blog' value={formData.blog} onChange={(e)=>handleLogin(e)}/>
-      <button onClick={(e) =>submit_Form(e)}>Update</button>
+      <button type='submit'>Update</button>
       <hr></hr>
     </form>
     {
@@ -140,7 +129,9 @@ export default function UpdateDeletePost() {
         Are you sure you want to delete this Post
         <button onClick={()=>setDelete(!isDelete)}>Cancel</button>
         <br/>
-        <button onClick={delete_post}>Yes I want to delete it </button>
+        <form onSubmit={delete_post}>
+         <button type='submit'>Yes I want to delete it </button>
+        </form>
       </div>
     }
     {
@@ -152,7 +143,9 @@ export default function UpdateDeletePost() {
             <div>message: {com.message}</div>
             <div className='time'>{com.timestamp}</div>
           </div>
-          <button className='button-delete' onClick={(e)=>delete_comment(e,com._id)}>delete</button>
+          <form onSubmit={delete_comment(com._id)}>
+            <button className='button-delete'>delete</button>
+          </form>
         </div>
       })
     }
