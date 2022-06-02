@@ -26,6 +26,7 @@ function CreatePost(props) {
     }
   }
   const submit_Form = async(e) =>{
+    e.preventDefault()
     try {
       const response = fetch('https://agile-mesa-41864.herokuapp.com/author/posts/create',{
         method : 'POST',
@@ -56,7 +57,7 @@ function CreatePost(props) {
     {
       props.userAuth ?
       <div> 
-        <form>
+        <form target='_blank' action='/author/posts'>
         <div>
           <label>Public</label>
           <input name='public' 
