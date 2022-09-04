@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import Nav from "./Components/Nav";
+import Nav from "./Components/Nav/Nav";
 import Posts from "./Components/Posts";
 import Auth from "./Components/Auth";
 import CreatePost from "./Components/CreatePost";
