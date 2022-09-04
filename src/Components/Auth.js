@@ -1,6 +1,6 @@
 import { React, useState } from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import Login from "./Login/Login";
+import SignUp from "./SignUp/SignUp";
 import "../styles/Auth.css";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";

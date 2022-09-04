@@ -1,25 +1,4 @@
-.auth{
-  display: flex;
-  justify-content: center;
-}
-.loggedIn{
-  margin-top: 100px;
-  background-color: hsla(179, 91%, 22%, 0.418);
-  color: white;
-  width: 300px;
-  padding: 20px 5px;
 
-}
-.loggedIn button{
-  background-color: hsla(179, 78%, 15%, 0.773);
-  color: white;
-  font-weight: 700;
-  border: none;
-  border-radius: 1.24rem;
-  padding: 10px 15px;
-  border: 1px black solid;
-  cursor: pointer;
-}
 .loggedIn button:hover{
   transform: rotate(-2deg);
 }
