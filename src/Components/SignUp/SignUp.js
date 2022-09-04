@@ -16,8 +16,15 @@ export default function SignUp(props) {
         type="text"
         name="last_name"
         value={props.loginData.last_name}
-        change={props.handleLogin}
         placeholder="last name"
+        change={props.handleLogin}
+      />
+      <TextInput
+        type="text"
+        name="username"
+        value={props.loginData.username}
+        placeholder="username"
+        change={props.handleLogin}
       />
       <TextInput
         type="password"
