@@ -1,0 +1,15 @@
+.submitButton{
+  border: none;
+  padding: 7px 15px;
+  background-color: rebeccapurple;
+  color: white;
+  font-weight: 800;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform .2s;
+}
+.submitButton:hover{
+  transform: scale(1.1);
+}
