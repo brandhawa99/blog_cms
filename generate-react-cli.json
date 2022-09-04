@@ -9,7 +9,7 @@
         "component":"generate-templates/TemplateName.js",
         "style":"generate-templates/TemplateName.module.css"
       },
-      "path": "src/components",
+      "path": "src/Components",
       "withStyle": true,
       "withTest": true,
       "withStory": false,
