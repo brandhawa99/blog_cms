@@ -9,9 +9,14 @@
   padding: 10px 0px;
   background-color: dodgerblue;
   width: 100%;
+  gap:20px
 }
 
 .navLink{
-  background-color: green;
+  text-decoration: none;
+  border: none;
+  font-weight: 800;
+  color: white;
+
 }
 
