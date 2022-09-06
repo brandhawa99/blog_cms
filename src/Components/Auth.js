@@ -1,14 +1,13 @@
 import { React, useState } from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import Login from "./Login/Login";
+import SignUp from "./SignUp/SignUp";
 import "../styles/Auth.css";
-import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import Button from "./Button/Button";
 
 function Auth(props) {
   const [errors, setErrors] = useState([]);
 
-  let navigate = useNavigate();
   const [loginForm, setLoginForm] = useState(true);
   const [loginData, setLoginData] = useState({
     username: "",
@@ -38,16 +37,18 @@ function Auth(props) {
   const loginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
-        method: "POST",
-        mode: "no-cors",
-        credentials: "same-origin",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
-      });
+      const response = await fetch(
+        "https://agile-mesa-41864.herokuapp.com/auth/login",
+        {
+          method: "POST",
+          mode: "cors",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        }
+      );
       const valid = await response.json();
       if (response.status === 200) {
         props.setUserAuth(true);
@@ -139,7 +140,7 @@ function Auth(props) {
         </div>
       ) : (
         <div className="loggedIn">
-          <button onClick={logOut}>Log Out!</button>
+          <Button text="Log Out!" click={logOut} />
         </div>
       )}
     </div>

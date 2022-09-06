@@ -1,7 +1,9 @@
 import { React, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-require("../styles/CreatePost.css");
+import TextInput from "../TextInput/TextInput";
+import styles from "./UpdateDeletePost.module.css";
+import Button from "../Button/Button";
 export default function UpdateDeletePost() {
   const params = useParams();
   const navigate = useNavigate();
@@ -14,6 +16,9 @@ export default function UpdateDeletePost() {
     public: false,
   });
 
+  const refresh = () => {
+    window.location.reload(false);
+  };
   const handleLogin = (e) => {
     e.preventDefault();
     const newdata = { ...formData };
@@ -47,19 +52,23 @@ export default function UpdateDeletePost() {
     setComments(postData.comment);
   };
 
-  const delete_post = async (e) => {
-    e.preventDefault();
-    await fetch(
-      `https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}/delete`,
-      {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
-    navigate(`/author/posts`);
+  const delete_post = async () => {
+    try {
+      let del = await fetch(
+        `https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}/delete`,
+        {
+          method: "POST",
+          mode: "cors",
+          credentials: "same-origin",
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      navigate(`/author/posts`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const submit_Form = async (e) => {
@@ -74,7 +83,6 @@ export default function UpdateDeletePost() {
           Authorization: localStorage.getItem("token"),
         },
         body: JSON.stringify({
-          author: formData.author,
           title: formData.title,
           blog: formData.blog,
           timestamp: formData.timestamp,
@@ -82,6 +90,7 @@ export default function UpdateDeletePost() {
           id: formData._id,
         }),
       });
+      console.log(formData);
     } catch (error) {}
     navigate("/author/posts");
   };
@@ -99,6 +108,7 @@ export default function UpdateDeletePost() {
         },
       }
     );
+    refresh();
     navigate(`/author/posts/${params.id}`);
   };
 
@@ -107,9 +117,9 @@ export default function UpdateDeletePost() {
   }, []);
 
   return (
-    <div>
-      <form onSubmit={submit_Form}>
-        <div>
+    <div className={styles.mainContainer}>
+      <form className={styles.formContainer} onSubmit={submit_Form}>
+        <div className={styles.public}>
           <label>Public</label>
           <input
             name="public"
@@ -119,58 +129,91 @@ export default function UpdateDeletePost() {
             onChange={handleOnChange}
           ></input>
         </div>
-        <input
+        <TextInput
           type="text"
           placeholder="Title"
           name="title"
           value={formData.title}
-          onChange={(e) => handleLogin(e)}
+          change={handleLogin}
         />
+
         <textarea
+          className={styles.textArea}
           type="textarea"
           placeholder="post"
           name="blog"
           value={formData.blog}
           onChange={(e) => handleLogin(e)}
         />
-        <button type="submit">Update</button>
-        <hr></hr>
+        <Button text="Update" type="submit" />
       </form>
+
       {!isDelete && (
         <button
+          className={styles.deleteButton}
           style={{ marginBottom: "10px" }}
           onClick={() => {
             setDelete(!isDelete);
           }}
         >
-          Delete
+          Delete Post
         </button>
       )}
       {isDelete && (
-        <div style={{ marginBottom: "7px" }}>
-          Are you sure you want to delete this Post
-          <button onClick={() => setDelete(!isDelete)}>Cancel</button>
-          <br />
-          <form onSubmit={delete_post}>
-            <button type="submit">Yes I want to delete it </button>
+        <div className={styles.deleteContainer}>
+          <span>Are you sure you want to delete this Post</span>
+          <button
+            className={styles.deleteCancel}
+            onClick={() => setDelete(!isDelete)}
+          >
+            Cancel
+          </button>
+          <form
+            onSubmit={(e) => {
+              delete_post();
+            }}
+          >
+            <button
+              className={styles.deleteDelete}
+              onClick={(e) => {
+                e.preventDefault();
+                delete_post();
+              }}
+            >
+              Yes I want to delete it
+            </button>
           </form>
         </div>
       )}
-      {comments.length > 0 &&
-        comments.map((com) => {
-          return (
-            <div key={uuid()} className="delete-comment">
-              <div className="data">
-                <div>username: {com.name}</div>
-                <div>message: {com.message}</div>
-                <div className="time">{com.timestamp}</div>
+      <div className={styles.commentContainer}>
+        <h1>COMMENTS</h1>
+        {comments.length > 0 ? (
+          comments.map((com) => {
+            return (
+              <div key={uuid()} className={styles.comment}>
+                <div className={styles.data}>
+                  <span className="time">{com.timestamp}</span>
+                  <h4>{com.name}</h4>
+                  <p>{com.message}</p>
+                </div>
+                <form
+                  className={styles.form}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    delete_comment(com._id);
+                  }}
+                >
+                  <button type="submit" className="button-delete">
+                    delete
+                  </button>
+                </form>
               </div>
-              <form onSubmit={delete_comment(com._id)}>
-                <button className="button-delete">delete</button>
-              </form>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <h2>NO COMMENTS</h2>
+        )}
+      </div>
     </div>
   );
 }

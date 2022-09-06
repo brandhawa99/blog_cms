@@ -1,0 +1,11 @@
+.mainContainer{
+  display: flex;
+  padding: 8px 10px;
+  font-size: 1.02rem;
+  border-radius: .9rem;
+  border: 1px black solid;
+  border: none;
+}
+input[type="text"], input[type='password']{
+  background-color: rgb(206, 224, 241);
+}

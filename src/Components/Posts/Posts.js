@@ -1,13 +1,14 @@
 import { React, useState, useEffect } from "react";
-import Post from "./Post";
+import Post from "../Post/Post";
 import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
-import "../styles/Post.css";
+import styles from "./Posts.module.css";
+import Button from "../Button/Button";
 
 export default function Posts(props) {
   const navigate = useNavigate();
 
-  const [postData, setPostsData] = useState(undefined);
+  const [postData, setPostsData] = useState([]);
   const [errors, setErrors] = useState(false);
 
   const data = async () => {
@@ -29,10 +30,10 @@ export default function Posts(props) {
         data = data.posts;
         setPostsData(JSON.parse(JSON.stringify(data)));
       } else {
-        throw new Error("The response was not okay");
+        throw new Error();
       }
     } catch (error) {
-      console.log(error);
+      console.log("The response was not okay");
     }
   };
   const emptyData = (e) => {
@@ -45,30 +46,21 @@ export default function Posts(props) {
   }, []);
 
   return (
-    <div className="main-container">
-      {(postData === undefined || postData.length <= 0) && (
-        <div className="loggedIn">
-          <button onClick={(e) => emptyData(e)}>Create your first Post</button>
-        </div>
+    <div className={styles.mainContainer}>
+      {postData.length <= 0 && (
+        <Button text="Create Your First Post" click={emptyData} />
       )}
 
-      {postData?.map((post) => {
+      {postData.map((post) => {
         return (
-          <div
-            key={uuid()}
-            className={`post-container ${post.public ? "green" : "red"}`}
-            onClick={() => {
-              navigate("/author/posts/" + post._id);
-            }}
-          >
-            <Post
-              key={post._id}
-              title={post.title}
-              blog={post.blog}
-              public={post.public}
-              timestamp={post.timestamp}
-            />
-          </div>
+          <Post
+            id={post._id}
+            key={post._id}
+            title={post.title}
+            blog={post.blog}
+            public={post.public}
+            timestamp={post.timestamp}
+          />
         );
       })}
     </div>

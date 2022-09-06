@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-require("../styles/CreatePost.css");
+import TextInput from "../TextInput/TextInput";
+import styles from "./CreatePost.module.css";
+import Button from "../Button/Button";
+
 function CreatePost(props) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
@@ -45,47 +48,40 @@ function CreatePost(props) {
           }),
         }
       );
+      navigate("/author/posts");
     } catch (error) {}
-    navigate("/author/posts");
   };
 
   return (
-    <div className="create-container">
-      {props.userAuth ? (
-        <div>
-          <form onSubmit={submit_Form}>
-            <div>
-              <label>Public</label>
-              <input
-                name="public"
-                type="checkbox"
-                value="public"
-                checked={isChecked}
-                onChange={handleOnChange}
-              ></input>
-            </div>
-            <input
-              type="text"
-              placeholder="Title"
-              name="title"
-              value={formData.title}
-              onChange={(e) => handleLogin(e)}
-            />
-            <textarea
-              className="text-area"
-              type="textarea"
-              placeholder="post"
-              name="blog"
-              value={formData.blog}
-              onChange={(e) => handleLogin(e)}
-            />
-            <button type="submit">Post</button>
-          </form>
-        </div>
-      ) : (
-        <div> LOGIN</div>
-      )}
-    </div>
+    <form className={styles.mainContainer} onSubmit={submit_Form}>
+      <div className={styles.public}>
+        <label>Public</label>
+        <input
+          name="public"
+          type="checkbox"
+          value="public"
+          checked={isChecked}
+          onChange={handleOnChange}
+        ></input>
+      </div>
+      <TextInput
+        placeholder="Title"
+        type="text"
+        name="title"
+        value={formData.title}
+        change={handleLogin}
+      />
+
+      <textarea
+        className={styles.textArea}
+        type="textarea"
+        placeholder="Whats on your mind?"
+        name="blog"
+        value={formData.blog}
+        onChange={(e) => handleLogin(e)}
+      />
+      <Button text="Post" type="submit" />
+    </form>
   );
 }
 
