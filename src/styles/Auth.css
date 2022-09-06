@@ -1,8 +1,3 @@
-
-.loggedIn button:hover{
-  transform: rotate(-2deg);
-}
-
 .switch-button{
   margin-top: 25px;
   border: none;
