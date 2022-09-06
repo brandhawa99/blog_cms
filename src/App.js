@@ -3,15 +3,16 @@ import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Nav from "./Components/Nav/Nav";
-import Posts from "./Components/Posts";
+import Posts from "./Components/Posts/Posts";
 import Auth from "./Components/Auth";
-import CreatePost from "./Components/CreatePost";
-import UpdateDeletePost from "./Components/UpdateDeletePost";
+import CreatePost from "./Components/CreatePost/CreatePost";
+import UpdateDeletePost from "./Components/UpdateDeletePost/UpdateDeletePost";
 import PageNotFound from "./Components/PageNotFound";
 
 function App() {
   const navigate = useNavigate();
   const [userAuth, setUserAuth] = useState(false);
+  const [deleteComment, setDelete] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,7 +24,7 @@ function App() {
       const expiredate = localStorage.getItem("expires");
       if (expiredate > Date.now()) {
         setUserAuth(true);
-        navigate("/author/posts", { replace: true });
+        // navigate("/author/posts", { replace: true });
       } else {
         localStorage.removeItem("token");
         localStorage.removeItem("expires");
