@@ -38,7 +38,7 @@ function Auth(props) {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://agile-mesa-41864.herokuapp.com/auth/login",
+        "https://blog-api-h9xk.onrender.com/auth/login",
         {
           method: "POST",
           mode: "cors",
@@ -65,7 +65,7 @@ function Auth(props) {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://agile-mesa-41864.herokuapp.com/auth/signup",
+        "https://blog-api-h9xk.onrender.com/auth/signup",
         {
           method: "POST",
           mode: "cors",

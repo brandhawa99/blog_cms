@@ -31,23 +31,20 @@ function CreatePost(props) {
   const submit_Form = async (e) => {
     e.preventDefault();
     try {
-      await fetch(
-        "https://agile-mesa-41864.herokuapp.com/author/posts/create",
-        {
-          method: "POST",
-          mode: "cors",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-          body: JSON.stringify({
-            title: formData.title,
-            blog: formData.blog,
-            public: formData.public,
-          }),
-        }
-      );
+      await fetch("https://blog-api-h9xk.onrender.com/author/posts/create", {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          title: formData.title,
+          blog: formData.blog,
+          public: formData.public,
+        }),
+      });
       navigate("/author/posts");
     } catch (error) {}
   };

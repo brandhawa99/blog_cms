@@ -37,7 +37,7 @@ export default function UpdateDeletePost() {
   const getPost = async () => {
     const idToken = localStorage.getItem("token");
     const data = await fetch(
-      `https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}`,
+      `https://blog-api-h9xk.onrender.com/author/posts/${params.id}`,
       {
         method: "GET",
         mode: "cors",
@@ -55,7 +55,7 @@ export default function UpdateDeletePost() {
   const delete_post = async () => {
     try {
       let del = await fetch(
-        `https://agile-mesa-41864.herokuapp.com/author/posts/${params.id}/delete`,
+        `https://blog-api-h9xk.onrender.com/author/posts/${params.id}/delete`,
         {
           method: "POST",
           mode: "cors",
@@ -74,7 +74,7 @@ export default function UpdateDeletePost() {
   const submit_Form = async (e) => {
     e.preventDefault();
     try {
-      fetch("https://agile-mesa-41864.herokuapp.com/author/posts/update", {
+      fetch("https://blog-api-h9xk.onrender.com/author/posts/update", {
         method: "POST",
         mode: "cors",
         credentials: "same-origin",
@@ -97,7 +97,7 @@ export default function UpdateDeletePost() {
 
   const delete_comment = async (id) => {
     await fetch(
-      `https://agile-mesa-41864.herokuapp.com/author/comment/${id}/delete`,
+      `https://blog-api-h9xk.onrender.com/author/comment/${id}/delete`,
       {
         method: "POST",
         mode: "cors",
