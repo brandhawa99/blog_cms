@@ -33,3 +33,5 @@ The cms is built with reactjs. it uses react-router-dom and fetch api. local sto
 2. Run `npm install` to install all of the neccessary packages
 3. Run `npm run start` and it should start working just fine
 
+TODO: update url https://blog-api-h9xk.onrender.com/
+
